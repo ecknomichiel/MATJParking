@@ -29,7 +29,7 @@ namespace MATJParking
 
         public Vehicle SearchVehicle(string aRegistrationNumber)
         {
-            ParkingPlace park = parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
+            ParkingPlace park = SearchPlaceWhereVehicleIsParked(aRegistrationNumber);
             if (park == null)
             {
                 return null;
@@ -38,6 +38,11 @@ namespace MATJParking
             {
                 return park.Vehicle;
             }
+        }
+
+        private ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
+        {
+            return parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
         }
       
         public string CheckIn(string RegistrationNumber, string VehicleType)

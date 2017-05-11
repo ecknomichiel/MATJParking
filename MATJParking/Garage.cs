@@ -26,6 +26,19 @@ namespace MATJParking
                     throw new EUnknownVehicleType(VehicleType);
             }
         }
+
+        public Vehicle SearchVehicle(string aRegistrationNumber)
+        {
+            ParkingPlace park = parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
+            if (park == null)
+            {
+                return null;
+            }
+            else
+            {
+                return park.Vehicle;
+            }
+        }
       
         public string CheckIn(string RegistrationNumber, string VehicleType)
         {

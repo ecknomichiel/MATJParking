@@ -65,15 +65,16 @@ namespace MATJParking
     class EUnknownVehicleType: Exception
     {
         public EUnknownVehicleType(string vehicleType)
-            : base(String.Format("Unknows vehicle type: {0}", vehicleType)) { }
- 
+        {
+            Message = String.Format("Unknows vehicle type: {0}", vehicleType);
+        }
     }
 
     class ENoPlaceForVehicle: Exception
     {
         public ENoPlaceForVehicle(string vehicleType): base (String.Format("No place for vehicle of type: {0}", vehicleType))
         {
-          
+            Message = String.Format("No place for vehicle of type: {0}", vehicleType);
         }
     }
 }

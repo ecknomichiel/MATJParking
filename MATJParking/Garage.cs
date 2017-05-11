@@ -27,6 +27,27 @@ namespace MATJParking
             }
         }
 
+        private void LoadParkingPlaces()
+        {
+            int i;
+            for (i = 0; i < 5; i++ ) 
+            {
+                parkingplaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = new Bus().GetType()});
+            }
+            for (i = 0; i < 5; i++)
+            {
+                parkingplaces.Add(new ParkingPlace() { ID = "T" + i, VehicleType = new Truck().GetType() });
+            }
+            for (i = 0; i < 50; i++)
+            {
+                parkingplaces.Add(new ParkingPlace() { ID = "C" + i, VehicleType = new Car().GetType() });
+            }
+            for (i = 0; i < 20; i++)
+            {
+                parkingplaces.Add(new ParkingPlace() { ID = "M" + i, VehicleType = new MotorCycle().GetType() });
+            }
+        }
+
         public Vehicle SearchVehicle(string aRegistrationNumber)
         {
             ParkingPlace park = SearchPlaceWhereVehicleIsParked(aRegistrationNumber);
@@ -58,6 +79,16 @@ namespace MATJParking
             place.Park(vehicle);
 
             return place.ID;
+        }
+
+        public IEnumerable<ParkingPlace> GetAllParkingPlaces()
+        {
+            return parkingplaces;
+        }
+
+        public Garage()
+        {
+            LoadParkingPlaces();
         }
 
 

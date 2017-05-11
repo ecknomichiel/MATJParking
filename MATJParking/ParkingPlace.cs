@@ -12,6 +12,17 @@ namespace MATJParking
         public Type VehicleType { get; set; }
         public string ID { get; set; }
         public bool Occupied { get {return vehicle != null;} }
+        public string VehicleRegNumber 
+        { 
+            get 
+            {
+                if (vehicle == null)
+                    return "";
+                else
+                    return vehicle.RegNumber;
+            } 
+        }
+        public Vehicle Vehicle { get { return vehicle; } }
 
         public void Park(Vehicle Avehicle)
         {

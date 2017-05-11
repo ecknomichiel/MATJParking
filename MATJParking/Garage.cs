@@ -26,6 +26,19 @@ namespace MATJParking
                     throw new EUnknownVehicleType(VehicleType);
             }
         }
+
+        public Vehicle SearchVehicle(string aRegistrationNumber)
+        {
+            ParkingPlace park = parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
+            if (park == null)
+            {
+                return null;
+            }
+            else
+            {
+                return park.Vehicle;
+            }
+        }
       
         public string CheckIn(string RegistrationNumber, string VehicleType)
         {
@@ -48,15 +61,15 @@ namespace MATJParking
     {
         public EUnknownVehicleType(string vehicleType)
         {
-           string Message = string.Format("Unknows vehicle type: {0}", vehicleType);
+            Message = String.Format("Unknows vehicle type: {0}", vehicleType);
         }
     }
 
     class ENoPlaceForVehicle: Exception
     {
-        public ENoPlaceForVehicle(string vehicleType)
+        public ENoPlaceForVehicle(string vehicleType): base (String.Format("No place for vehicle of type: {0}", vehicleType))
         {
-            string Message = String.Format("No place for vehicle of type: {0}", vehicleType);
+            Message = String.Format("No place for vehicle of type: {0}", vehicleType);
         }
     }
 }

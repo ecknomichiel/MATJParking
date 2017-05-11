@@ -11,7 +11,10 @@ namespace MATJParking
         public DateTime CheckInTime { get; set; }
         public DateTime CheckOutTime { get; set; }
         public string RegNumber { get; set; }
-        public double Price { get; }
+        public double Price 
+        {
+            get { return GetPrice(); } 
+        }
 
         //methods
 

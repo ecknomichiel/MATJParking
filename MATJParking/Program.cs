@@ -8,10 +8,9 @@ namespace MATJParking
 {
     class Program
     {
+        private static Garage garage = new Garage();
         static void Main(string[] args)
         {
-            Garage garage = new Garage();
-
             //Main menu
             bool runProgram = true;
             while (runProgram == true)
@@ -26,7 +25,7 @@ namespace MATJParking
                 {
                     case "1":
 
-                        case
+                     
 
                     break;
                 }

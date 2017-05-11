@@ -29,7 +29,7 @@ namespace MATJParking
         private void LoadParkingPlaces()
         {
             int i;
-            for (i = 0; i < 5; i++ ) 
+            for (i = 0; i < 1; i++ ) 
             {
                 parkingplaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = new Bus().GetType()});
             }

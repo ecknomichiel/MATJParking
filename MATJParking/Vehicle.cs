@@ -8,6 +8,18 @@ namespace MATJParking
 {
    abstract class Vehicle
     {
+        protected double StandardPrice
+        { 
+            get 
+            { 
+                DateTime endTime = CheckOutTime;
+                if (CheckOutTime == null)
+                {
+                    endTime = DateTime.Now;
+                }
+                return (endTime - CheckInTime).Hours * 15;
+            }
+        }
         public DateTime CheckInTime { get; set; }
         public DateTime CheckOutTime { get; set; }
         public string RegNumber { get; set; }

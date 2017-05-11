@@ -9,7 +9,7 @@ namespace MATJParking
     class Garage
     {
         private List<ParkingPlace> parkingplaces = new List<ParkingPlace>();
-
+        #region Private Methods
         private Vehicle CreateVehicle(string VehicleType)
         {
             switch (VehicleType)
@@ -26,7 +26,6 @@ namespace MATJParking
                     throw new EUnknownVehicleType(VehicleType);
             }
         }
-
         private void LoadParkingPlaces()
         {
             int i;
@@ -47,25 +46,8 @@ namespace MATJParking
                 parkingplaces.Add(new ParkingPlace() { ID = "M" + i, VehicleType = new MotorCycle().GetType() });
             }
         }
-
-        public Vehicle SearchVehicle(string aRegistrationNumber)
-        {
-            ParkingPlace park = SearchPlaceWhereVehicleIsParked(aRegistrationNumber);
-            if (park == null)
-            {
-                return null;
-            }
-            else
-            {
-                return park.Vehicle;
-            }
-        }
-
-        private ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
-        {
-            return parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
-        }
-      
+        #endregion
+        #region Public Methods
         public string CheckIn(string RegistrationNumber, string VehicleType)
         {
             Vehicle vehicle = CreateVehicle(VehicleType);
@@ -81,11 +63,36 @@ namespace MATJParking
             return place.ID;
         }
 
+        public void CheckOut(string RegistrationNumber)
+        {
+            ParkingPlace place = SearchPlaceWhereVehicleIsParked(RegistrationNumber);
+            if (place == null)
+                throw new EVehicleNotFound(RegistrationNumber);
+            place.Unpark();
+        }
+        #endregion
+        #region Search
         public IEnumerable<ParkingPlace> GetAllParkingPlaces()
         {
             return parkingplaces;
         }
-
+        public Vehicle SearchVehicle(string aRegistrationNumber)
+        {
+            ParkingPlace park = SearchPlaceWhereVehicleIsParked(aRegistrationNumber);
+            if (park == null)
+            {
+                return null;
+            }
+            else
+            {
+                return park.Vehicle;
+            }
+        }
+        public ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
+        {
+            return parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
+        }
+        #endregion
         public Garage()
         {
             LoadParkingPlaces();
@@ -93,6 +100,7 @@ namespace MATJParking
 
 
     }
+    #region Exceptions
     class EUnknownVehicleType: Exception
     {
         public EUnknownVehicleType(string vehicleType): base(String.Format("Unknows vehicle type: {0}", vehicleType))
@@ -107,4 +115,13 @@ namespace MATJParking
         {
         }
     }
+
+    class EVehicleNotFound : Exception
+    {
+        public EVehicleNotFound(string aRegistrationNumber) :
+            base(String.Format("Vehicle with registration number '{0}' not found.", aRegistrationNumber))
+        {
+        }
+    }
+#endregion
 }

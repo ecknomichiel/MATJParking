@@ -9,7 +9,7 @@ namespace MATJParking
     class Garage
     {
         private List<ParkingPlace> parkingplaces = new List<ParkingPlace>();
-
+        #region Private Methods
         private Vehicle CreateVehicle(string VehicleType)
         {
             switch (VehicleType)
@@ -26,25 +26,28 @@ namespace MATJParking
                     throw new EUnknownVehicleType(VehicleType);
             }
         }
-
-        public Vehicle SearchVehicle(string aRegistrationNumber)
+        private void LoadParkingPlaces()
         {
-            ParkingPlace park = SearchPlaceWhereVehicleIsParked(aRegistrationNumber);
-            if (park == null)
+            int i;
+            for (i = 0; i < 5; i++ ) 
             {
-                return null;
+                parkingplaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = new Bus().GetType()});
             }
-            else
+            for (i = 0; i < 5; i++)
             {
-                return park.Vehicle;
+                parkingplaces.Add(new ParkingPlace() { ID = "T" + i, VehicleType = new Truck().GetType() });
+            }
+            for (i = 0; i < 50; i++)
+            {
+                parkingplaces.Add(new ParkingPlace() { ID = "C" + i, VehicleType = new Car().GetType() });
+            }
+            for (i = 0; i < 20; i++)
+            {
+                parkingplaces.Add(new ParkingPlace() { ID = "M" + i, VehicleType = new MotorCycle().GetType() });
             }
         }
-
-        private ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
-        {
-            return parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
-        }
-      
+        #endregion
+        #region Public Methods
         public string CheckIn(string RegistrationNumber, string VehicleType)
         {
             Vehicle vehicle = CreateVehicle(VehicleType);
@@ -60,8 +63,56 @@ namespace MATJParking
             return place.ID;
         }
 
+        public void CheckOut(string RegistrationNumber)
+        {
+            ParkingPlace place = SearchPlaceWhereVehicleIsParked(RegistrationNumber);
+            if (place == null)
+                throw new EVehicleNotFound(RegistrationNumber);
+            place.Unpark();
+        }
+        #endregion
+        #region Search
+        public IEnumerable<ParkingPlace> SearchAllParkingPlaces()
+        {
+            return parkingplaces;
+        }
+        public IEnumerable<ParkingPlace> SearchAllParkedVehicles()
+        {
+            return parkingplaces.Where(pl => pl.Occupied);
+        }
+        public IEnumerable<ParkingPlace> SearchAllParkedVehiclesOnPrice(double aPrice, bool greaterThan)
+        {
+            if (greaterThan)
+                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.Price >= aPrice);
+            else
+                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.Price <= aPrice);
+        }
+        public Vehicle SearchVehicle(string aRegistrationNumber)
+        {
+            ParkingPlace park = SearchPlaceWhereVehicleIsParked(aRegistrationNumber);
+            if (park == null)
+            {
+                return null;
+            }
+            else
+            {
+                return park.Vehicle;
+            }
+        }
+        public ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
+        {
+            return parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
+        }
+        #endregion
+        #region Constructor
+        public Garage()
+        {
+            LoadParkingPlaces();
+        }
+        #endregion
 
     }
+    #region Exceptions
     class EUnknownVehicleType: Exception
     {
         public EUnknownVehicleType(string vehicleType): base(String.Format("Unknows vehicle type: {0}", vehicleType))
@@ -76,4 +127,13 @@ namespace MATJParking
         {
         }
     }
+
+    class EVehicleNotFound : Exception
+    {
+        public EVehicleNotFound(string aRegistrationNumber) :
+            base(String.Format("Vehicle with registration number '{0}' not found.", aRegistrationNumber))
+        {
+        }
+    }
+#endregion
 }

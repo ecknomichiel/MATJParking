@@ -10,7 +10,8 @@ namespace MATJParking
     {
         protected override double GetPrice()
         {
-            return StandardPrice * 2;
+            var PriceForCar = StandardPrice * 2;
+            return PriceForCar;
         }
     }
 }

@@ -72,9 +72,20 @@ namespace MATJParking
         }
         #endregion
         #region Search
-        public IEnumerable<ParkingPlace> GetAllParkingPlaces()
+        public IEnumerable<ParkingPlace> SearchAllParkingPlaces()
         {
             return parkingplaces;
+        }
+        public IEnumerable<ParkingPlace> SearchAllParkedVehicles()
+        {
+            return parkingplaces.Where(pl => pl.Occupied);
+        }
+        public IEnumerable<ParkingPlace> SearchAllParkedVehiclesOnPrice(double aPrice, bool greaterThan)
+        {
+            if (greaterThan)
+                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.Price >= aPrice);
+            else
+                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.Price <= aPrice);
         }
         public Vehicle SearchVehicle(string aRegistrationNumber)
         {
@@ -93,11 +104,12 @@ namespace MATJParking
             return parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
         }
         #endregion
+        #region Constructor
         public Garage()
         {
             LoadParkingPlaces();
         }
-
+        #endregion
 
     }
     #region Exceptions

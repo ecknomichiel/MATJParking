@@ -12,7 +12,7 @@ namespace MATJParking
         {
             Garage garage = new Garage();
 
-            foreach (ParkingPlace place in garage.GetAllParkingPlaces())
+            foreach (ParkingPlace place in garage.SearchAllParkingPlaces())
             {
                 Console.WriteLine("{0} occupied: {1} {2}", place.ID, place.Occupied, place.VehicleRegNumber);
             }

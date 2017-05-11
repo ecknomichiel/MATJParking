@@ -12,7 +12,7 @@ namespace MATJParking
       
         public string CheckIn(string RegistrationNumber, string VehicleType)
         {
-
+            return "";
         }
 
 

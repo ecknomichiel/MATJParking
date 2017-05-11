@@ -8,19 +8,19 @@ namespace MATJParking
 {
     class ParkingPlace
     {
-        private object vehicle;
+        private Vehicle vehicle;
         public Type vehicleType { get; set; }
         public string ID { get; set; }
         public bool Occupied { get {return vehicle != null;} }
 
-        public void Park(object Avehicle)
+        public void Park(Vehicle Avehicle)
         {
             vehicle = Avehicle;
-           // Vehicle.CheckInTime = Datetime.Now;
+            vehicle.CheckInTime = DateTime.Now;
         }
         public void Unpark()
         {
-            //Vehicle.CheckOutTime = Datetime.Now;
+            vehicle.CheckOutTime = DateTime.Now;
             vehicle = null;
 
         }

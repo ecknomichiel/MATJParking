@@ -9,7 +9,7 @@ namespace MATJParking
     class ParkingPlace
     {
         private Vehicle vehicle;
-        public Type vehicleType { get; set; }
+        public Type VehicleType { get; set; }
         public string ID { get; set; }
         public bool Occupied { get {return vehicle != null;} }
 

@@ -48,7 +48,7 @@ namespace MATJParking
     {
         public EUnknownVehicleType(string vehicleType)
         {
-            Message = String.Format("Unknows vehicle type: {0}", vehicleType);
+           string Message = string.Format("Unknows vehicle type: {0}", vehicleType);
         }
     }
 
@@ -56,7 +56,7 @@ namespace MATJParking
     {
         public ENoPlaceForVehicle(string vehicleType)
         {
-            Message = String.Format("No place for vehicle of type: {0}", vehicleType);
+            string Message = String.Format("No place for vehicle of type: {0}", vehicleType);
         }
     }
 }

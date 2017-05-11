@@ -21,7 +21,7 @@ namespace MATJParking
                     +"\n3.Search for your Vehicle \n4.Search for multiple Vehicles \n5.See all Vehicles at Garage \n6.Exit");
       		    Console.WriteLine("Please enter your selection: ");
 
-                switch (Console.ReadLine())  //switch statement 
+                switch (Console.ReadLine())  
                 {
                     case "1":
 

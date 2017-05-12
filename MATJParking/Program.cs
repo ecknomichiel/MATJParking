@@ -143,7 +143,7 @@ namespace MATJParking
         private static void Checkin()
         {
             Console.WriteLine();
-            Console.WriteLine("Add a new vehicle to the garage");
+            Console.WriteLine("Park your vehicle in the garage");
             Console.WriteLine("---------------------------------------");
             Console.WriteLine("Please Add the Registration Number");
             string regNumber = Console.ReadLine();

@@ -13,10 +13,10 @@ namespace MATJParking
             while (runProgram)
 
             {
-                Console.Clear();  // Clears console
+                Console.Clear();  
                 Console.WriteLine("Welcome to the MATJParking! Please navigate through the menu: \n1.CheckIn \n2.CheckOut "
-                    +"\n3.Search for your Vehicle \n4.Search for multiple Vehicles \n5.See all Vehicles at Garage \n6.Exit");
-      		    Console.WriteLine("Please enter your selection: ");
+              + "\n3.Search for your Vehicle \n4.Search for multiple Vehicles \n5.See all the Vehicles parked in the Garage \n6.Exit");
+                Console.WriteLine("Please enter your selection: ");
 
                 switch (Console.ReadLine())  
                 {
@@ -26,6 +26,12 @@ namespace MATJParking
                         CheckOut();
                         break;
                     case "3":
+
+                         Console.WriteLine("Please enter your car's registrationNumber!");
+                        string RegNumber = Console.ReadLine();
+                        Console.WriteLine("The Vehicle is parked at:" + garage.SearchVehicle(RegNumber));
+                        Console.ReadKey();
+
                         break;
                     case "4":
                         break;

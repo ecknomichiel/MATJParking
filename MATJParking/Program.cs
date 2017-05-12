@@ -179,8 +179,6 @@ namespace MATJParking
                 Console.WriteLine(e.Message);
             }
             Console.ReadKey();
-            garage.CheckIn(regNumber, vType);
-            
         }
         private static string ConstrainInput(string question, string[] allowedValues)
         {

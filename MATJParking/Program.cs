@@ -34,6 +34,7 @@ namespace MATJParking
                         SearchForMultipleVehicles();
                         break;
                     case "5":
+                        ViewAllParkedVehicles();
                         break;
                     case "6":
                         runProgram = false;
@@ -41,10 +42,18 @@ namespace MATJParking
                 }
             }
         }
-
+        private static void ViewAllParkedVehicles()
+        {
+            //Console.WriteLine(garage.SearchAllParkedVehicles());
+            foreach (ParkingPlace place in garage.SearchAllParkedVehicles())
+            {
+                Console.WriteLine(place.ToString());
+            }
+            Console.ReadLine();
+        }
         private static void SearchVehicle()
         {
-            Console.WriteLine("Please enter your car's registrationNumber!");
+            Console.WriteLine("Please enter your Vehicle's registrationNumber!");
             string regNr = Console.ReadLine();
             try
             {
@@ -170,6 +179,8 @@ namespace MATJParking
                 Console.WriteLine(e.Message);
             }
             Console.ReadKey();
+            garage.CheckIn(regNumber, vType);
+            
         }
         private static string ConstrainInput(string question, string[] allowedValues)
         {

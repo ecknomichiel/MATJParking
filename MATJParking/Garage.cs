@@ -29,7 +29,7 @@ namespace MATJParking
         private void LoadParkingPlaces()
         {
             int i;
-            for (i = 0; i < 5; i++ ) 
+            for (i = 0; i < 1; i++ ) 
             {
                 parkingplaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = VehicleType.Bus});
             }
@@ -116,7 +116,7 @@ namespace MATJParking
         }
         public ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
         {
-            return parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
+            return parkingplaces.SingleOrDefault(pl => pl.Occupied && pl.VehicleRegNumber == aRegistrationNumber);
         }
         #endregion
         #region Constructor

@@ -74,6 +74,33 @@ namespace MATJParking
                 Console.WriteLine(e.Message);
             }
         }
+                        Console.WriteLine();
+                        Console.WriteLine("Add a new vehicle to the grage");
+                        Console.WriteLine("---------------------------------------");
+                       Console.WriteLine("Please Add the Registration Number");
+                       string regNumber =Console.ReadLine();
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("Please chose what vehicle Type");
+                        Console.WriteLine("----------------------------------------");
+                        
+                        string vType = Console.ReadLine();
+
+             
+                        garage.CheckIn(regNumber, vType);
+                        break;
+
+                    case "2":
+
+                        break;
+                    case "3":
+                        
+                    break;
+                    case "4":
+
+                        break;
+                    case "5":
+
+                        break;
 
         private static string ConstrainInput(string question, string[] allowedValues)
         {
@@ -87,6 +114,7 @@ namespace MATJParking
                     if (input == s)
                         return input;
                 }
+
             }
         }
     }

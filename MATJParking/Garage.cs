@@ -53,6 +53,7 @@ namespace MATJParking
             Vehicle vehicle = CreateVehicle(VehicleType);
             vehicle.RegNumber = RegistrationNumber;
             ParkingPlace place = parkingplaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
+                                                .Where(pl => !pl.Occupied)
                                                 .First();
             if (place == null)
             {

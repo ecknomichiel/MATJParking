@@ -68,6 +68,7 @@ namespace MATJParking
             {
                 Console.WriteLine(place.ToString());
             }
+            Console.ReadKey();
         }
 
         public static double AskForPrice(out bool greaterThan)
@@ -120,7 +121,7 @@ namespace MATJParking
             string regNumber = Console.ReadLine();
             Console.WriteLine("---------------------------------------");
             Console.WriteLine("Please chose what vehicle Type");
-            Console.WriteLine("1) Motorcycle\n2)Car\n3)Bus\n4) Truck");
+            Console.WriteLine("1) Motorcycle\n2) Car\n3) Bus\n4) Truck");
 
             string vType = ConstrainInput("Type: ", new string[] { "1", "2", "3", "4" });
 

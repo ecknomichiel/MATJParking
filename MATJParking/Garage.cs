@@ -61,7 +61,7 @@ namespace MATJParking
                                                 .Where(pl => !pl.Occupied)
                                                 .First();
             }
-            catch (Exception e)
+            catch (Exception)
             {// Throw our own exception with a custom message text
                 throw new ENoPlaceForVehicle(VehicleType);
             }
@@ -94,6 +94,14 @@ namespace MATJParking
             else
                 return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.Price <= aPrice);
         }
+
+        public IEnumerable<ParkingPlace> SearchAllParkedVehiclesOnParkingTime(double hours, bool greaterThan)
+        {
+            if (greaterThan)
+                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime >= hours);
+            else
+                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime <= hours);
+        }
         public Vehicle SearchVehicle(string aRegistrationNumber)
         {
             ParkingPlace park = SearchPlaceWhereVehicleIsParked(aRegistrationNumber);
@@ -118,6 +126,8 @@ namespace MATJParking
         }
         #endregion
 
+
+        
     }
     #region Exceptions
     class EUnknownVehicleType: Exception

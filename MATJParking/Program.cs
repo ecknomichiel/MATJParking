@@ -42,85 +42,7 @@ namespace MATJParking
                 }
             }
         }
-        private static void ViewAllParkedVehicles()
-        {
-            //Console.WriteLine(garage.SearchAllParkedVehicles());
-            foreach (ParkingPlace place in garage.SearchAllParkedVehicles())
-            {
-                Console.WriteLine(place.ToString());
-            }
-            Console.ReadKey();
-        }
-        private static void SearchVehicle()
-        {
-            Console.WriteLine("Please enter your vehicle's registration number.");
-            string regNr = Console.ReadLine();
-            try
-            {
-                ParkingPlace place = garage.SearchPlaceWhereVehicleIsParked(regNr);
-                if (place == null)
-                {
-                    Console.WriteLine("Cannot find the vehicle with registration number '{0}'", regNr);
-                }
-                else
-                {
-                    Console.WriteLine("The vehicle is parked at {0}.\n{1}", place.ID, place.Vehicle.ToString());
-                }
-            }
-            catch (EVehicleNotFound e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            Console.ReadKey();
-        }
-
-        private static void SearchForMultipleVehicles()
-        {
-            Console.WriteLine("Search vehicles: \n1) All parking places\n2) Search vehicles on parking price.\n3) Search vehicles on parking time");
-            string input = ConstrainInput("", new string[]{"1", "2", "3"});
-            IEnumerable<ParkingPlace> query;
-            string reportTitle;
-            bool greaterThan;
-            switch(input)
-            {
-                case "1":
-                    reportTitle = "All parking places";
-                    query = garage.SearchAllParkingPlaces();
-                    break;
-                case "2":
-                    reportTitle = "Search vehicles on parking price.";
-                    Console.WriteLine(reportTitle);
-                    double aPrice = AskForNumberToCompare("price", out greaterThan);
-                    query = garage.SearchAllParkedVehiclesOnPrice(aPrice, greaterThan);
-                    break;
-                case "3":
-                    reportTitle = "Search vehicles on parking time. (hours)";
-                    Console.WriteLine(reportTitle);
-                    double hours = AskForNumberToCompare("parking time", out greaterThan);
-                    query = garage.SearchAllParkedVehiclesOnParkingTime(hours, greaterThan);
-                    break;
-                default: return;
-            }
-            Console.Clear();
-            Console.WriteLine(reportTitle);
-            foreach (ParkingPlace place in query)
-            {
-                Console.WriteLine(place.ToString());
-            }
-            Console.ReadKey();
-        }
-
-        public static double AskForNumberToCompare(string aName, out bool greaterThan)
-        {
-            double result;
-            do //Ask for price again and again untill a number is entered
-                Console.Write("Please enter the {0}: ", aName);
-            while (!double.TryParse(Console.ReadLine(), out result));
-            greaterThan = ">" == ConstrainInput(String.Format("Choose '<' to search for items with a {0} smaller than the {0} you entered or '>' to search for item with a greater {0} ", aName), 
-                                                new string[] { "<", ">" });
-            return result;
-        }
-
+        #region Checkin / Checkout
         private static void CheckOut()
         {
             Console.WriteLine("Check out\nWhat is the registration number of the car you want to check out?");
@@ -152,13 +74,21 @@ namespace MATJParking
                 Console.WriteLine(e.Message);
             }
         }
-
         private static void Checkin()
         {
-            Console.WriteLine();
-            Console.WriteLine("Park your vehicle in the garage");
-            Console.WriteLine("Please enter the registration Number");
-            string regNumber = Console.ReadLine();
+            Console.WriteLine("Check in a car");
+            string regNumber = "";
+            while (regNumber == "")
+            {
+                Console.WriteLine("Please enter the registration Number");
+                regNumber = Console.ReadLine();
+            }
+            ParkingPlace place = garage.SearchPlaceWhereVehicleIsParked(regNumber);
+            if (place != null) //Check if vehicle is already parked in order to avoid asking for vehicle type if we cannot check in anyway.
+            {
+                Console.WriteLine("Your car is already parked. See details below:\n{0}\nPlease press any key to return to the main menu.", place.Vehicle.ToString());
+            }
+
             Console.WriteLine("Please choose what vehicle Type");
             Console.WriteLine("1) Motorcycle\n2) Car\n3) Bus\n4) Truck");
 
@@ -179,7 +109,7 @@ namespace MATJParking
                 default:
                     vt = VehicleType.Truck;
                     break;
-                
+
             }
 
             try
@@ -192,6 +122,93 @@ namespace MATJParking
             }
             Console.ReadKey();
         }
+        #endregion
+        #region Search / Report
+        private static void ViewAllParkedVehicles()
+        {
+            //Console.WriteLine(garage.SearchAllParkedVehicles());
+            foreach (ParkingPlace place in garage.SearchAllParkedVehicles())
+            {
+                Console.WriteLine(place.ToString());
+            }
+            Console.ReadKey();
+        }
+        private static void SearchVehicle()
+        {
+            Console.WriteLine("Please enter your vehicle's registration number.");
+            string regNr = Console.ReadLine();
+            try
+            {
+                ParkingPlace place = garage.SearchPlaceWhereVehicleIsParked(regNr);
+                if (place == null)
+                {
+                    Console.WriteLine("Cannot find the vehicle with registration number '{0}'", regNr);
+                }
+                else
+                {
+                    Console.WriteLine("The vehicle is parked at {0}.\n{1}", place.ID, place.Vehicle.ToString());
+                }
+            }
+            catch (EVehicleNotFound e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadKey();
+        }
+        private static void SearchForMultipleVehicles()
+        {
+            Console.WriteLine("Search vehicles: \n1) All parking places\n2) Search vehicles on parking price.\n3) Search vehicles on parking time");
+            string input = ConstrainInput("", new string[] { "1", "2", "3" });
+            IEnumerable<ParkingPlace> query;
+            string reportTitle;
+            bool greaterThan;
+            switch (input)
+            {
+                case "1":
+                    reportTitle = "All parking places";
+                    query = garage.SearchAllParkingPlaces();
+                    break;
+                case "2":
+                    reportTitle = "Search vehicles on parking price.";
+                    Console.WriteLine(reportTitle);
+                    double aPrice = AskForNumberToCompare("price", out greaterThan);
+                    query = garage.SearchAllParkedVehiclesOnPrice(aPrice, greaterThan);
+                    break;
+                case "3":
+                    reportTitle = "Search vehicles on parking time. (hours)";
+                    Console.WriteLine(reportTitle);
+                    double hours = AskForNumberToCompare("parking time", out greaterThan);
+                    query = garage.SearchAllParkedVehiclesOnParkingTime(hours, greaterThan);
+                    break;
+                default: return;
+            }
+            Console.Clear();
+            Console.WriteLine(reportTitle);
+            bool empty = true;
+            foreach (ParkingPlace place in query)
+            {
+                Console.WriteLine(place.ToString());
+                empty = false;
+            }
+            if (empty)
+                Console.WriteLine("<no results>");
+            Console.ReadKey();
+        }
+        #endregion
+
+        #region Helper methods
+        public static double AskForNumberToCompare(string aName, out bool greaterThan)
+        {
+            double result;
+            do //Ask for price again and again untill a number is entered
+                Console.Write("Please enter the {0}: ", aName);
+            while (!double.TryParse(Console.ReadLine(), out result));
+            greaterThan = ">" == ConstrainInput(String.Format("Choose '<' to search for items with a {0} smaller than the {0} you entered or '>' to search for item with a greater {0} ", aName), 
+                                                new string[] { "<", ">" });
+            return result;
+        }
+
+        
         private static string ConstrainInput(string question, string[] allowedValues)
         {
             string input;
@@ -207,5 +224,6 @@ namespace MATJParking
 
             }
         }
+        #endregion
     }
 }

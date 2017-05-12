@@ -13,7 +13,8 @@ namespace MATJParking
             while (runProgram)
 
             {
-                Console.Clear();  
+                Console.Clear();
+                Console.WriteLine();
                 Console.WriteLine("Welcome to the MATJParking! Please navigate through the menu: \n1.CheckIn \n2.CheckOut "
               + "\n3.Search for your Vehicle \n4.Search for multiple Vehicles \n5.See all the Vehicles parked in the Garage \n6.Exit");
                 Console.WriteLine("Please enter your selection: ");
@@ -28,7 +29,6 @@ namespace MATJParking
                         break;
                     case "3":
                         SearchVehicle();
-
                         break;
                     case "4":
                         SearchForMultipleVehicles();
@@ -57,14 +57,6 @@ namespace MATJParking
                 else
                 {
                     Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}\nDo you want to checkout y/n?", place.ID, place.Vehicle.Price);
-                    switch (ConstrainInput("Do you want to checkout y/n?", new string[] { "y", "n" }))
-                    {
-                        case "y":
-                            garage.CheckOut(regNr);
-                            break;
-                        case "n":
-                            return;
-                    }
                 }
             }
             catch (EVehicleNotFound e)
@@ -72,7 +64,6 @@ namespace MATJParking
                 Console.WriteLine(e.Message);
             }
         }
-
 
         private static void SearchForMultipleVehicles()
         {

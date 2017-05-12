@@ -56,14 +56,6 @@ namespace MATJParking
                 else
                 {
                     Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}\nDo you want to checkout y/n?", place.ID, place.Vehicle.Price);
-                    switch (ConstrainInput("Do you want to checkout y/n?", new string[] { "y", "n" }))
-                    {
-                        case "y":
-                            garage.CheckOut(regNr);
-                            break;
-                        case "n":
-                            return;
-                    }
                 }
             }
             catch (EVehicleNotFound e)
@@ -71,7 +63,6 @@ namespace MATJParking
                 Console.WriteLine(e.Message);
             }
         }
-
 
         private static void SearchForMultipleVehicles()
         {

@@ -13,7 +13,8 @@ namespace MATJParking
             while (runProgram)
 
             {
-                Console.Clear();  
+                Console.Clear();
+                Console.WriteLine();
                 Console.WriteLine("Welcome to the MATJParking! Please navigate through the menu: \n1.CheckIn \n2.CheckOut "
               + "\n3.Search for your Vehicle \n4.Search for multiple Vehicles \n5.See all the Vehicles parked in the Garage \n6.Exit");
                 Console.WriteLine("Please enter your selection: ");

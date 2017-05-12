@@ -52,7 +52,7 @@ namespace MATJParking
                 empty = false;
             }
 
-            if (empty == true)
+            if (empty)
             {
                 Console.WriteLine("No Vehicles in the garage");
             }

@@ -127,10 +127,18 @@ namespace MATJParking
         private static void ViewAllParkedVehicles()
         {
             //Console.WriteLine(garage.SearchAllParkedVehicles());
+            bool empty = true;
             foreach (ParkingPlace place in garage.SearchAllParkedVehicles())
             {
                 Console.WriteLine(place.ToString());
+                empty = false;
             }
+
+            if (empty)
+            {
+                Console.WriteLine("No Vehicles in the garage");
+            }
+            
             Console.ReadKey();
         }
         private static void SearchVehicle()

@@ -52,7 +52,10 @@ namespace MATJParking
         {
             Vehicle vehicle = CreateVehicle(VehicleType);
             vehicle.RegNumber = RegistrationNumber;
-            ParkingPlace place = parkingplaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
+            ParkingPlace place = SearchPlaceWhereVehicleIsParked(RegistrationNumber);
+            if (place != null)
+                throw new EVehicleAlreadyCheckedIn(RegistrationNumber, place.ID);
+            place = parkingplaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
                                                 .Where(pl => !pl.Occupied)
                                                 .First();
             if (place == null)
@@ -133,6 +136,14 @@ namespace MATJParking
     {
         public EVehicleNotFound(string aRegistrationNumber) :
             base(String.Format("Vehicle with registration number '{0}' not found.", aRegistrationNumber))
+        {
+        }
+    }
+
+    class EVehicleAlreadyCheckedIn : Exception
+    {
+        public EVehicleAlreadyCheckedIn(string aRegistrationNumber, string aParkingID) :
+            base(String.Format("Vehicle with registration number '{0}' is already checked in at place {1}.", aRegistrationNumber, aParkingID))
         {
         }
     }

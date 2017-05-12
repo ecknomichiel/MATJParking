@@ -136,10 +136,8 @@ namespace MATJParking
         {
             Console.WriteLine();
             Console.WriteLine("Park your vehicle in the garage");
-            Console.WriteLine("---------------------------------------");
-            Console.WriteLine("Please Add the Registration Number");
+            Console.WriteLine("Please enter the registration Number");
             string regNumber = Console.ReadLine();
-            Console.WriteLine("---------------------------------------");
             Console.WriteLine("Please chose what vehicle Type");
             Console.WriteLine("1) Motorcycle\n2) Car\n3) Bus\n4) Truck");
 
@@ -162,6 +160,16 @@ namespace MATJParking
                     break;
                 
             }
+
+            try
+            {
+                Console.WriteLine("{0} with registration number {1} is checked in at place {2}.", vType, regNumber, garage.CheckIn(regNumber, vType));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadKey();
             garage.CheckIn(regNumber, vType);
             
         }

@@ -48,7 +48,7 @@ namespace MATJParking
 
         private static void SearchForMultipleVehicles()
         {
-            Console.WriteLine("Search vehicles: \n")
+            Console.WriteLine("Search vehicles: \n");
         }
 
         private static void CheckOut()

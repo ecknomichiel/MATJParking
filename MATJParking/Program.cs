@@ -125,6 +125,24 @@ namespace MATJParking
             string vType = ConstrainInput("Type: ", new string[] { "1", "2", "3", "4" });
 
 
+            switch (vType)
+            {
+                case "1":
+                    vType = "motorcycle";
+                    break;
+                case "2":
+                    vType = "car";
+                    break;
+                        case "3":
+                    vType = "bus";
+                    break;
+                default:
+                    vType = "truck";
+                    break;
+                
+            }
+
+
             garage.CheckIn(regNumber, vType);
             
         }

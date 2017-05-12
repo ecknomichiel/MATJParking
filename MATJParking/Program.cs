@@ -157,7 +157,7 @@ namespace MATJParking
             Console.WriteLine("Park your vehicle in the garage");
             Console.WriteLine("Please enter the registration Number");
             string regNumber = Console.ReadLine();
-            Console.WriteLine("Please chose what vehicle Type");
+            Console.WriteLine("Please choose what vehicle Type");
             Console.WriteLine("1) Motorcycle\n2) Car\n3) Bus\n4) Truck");
 
             string vType = ConstrainInput("Type: ", new string[] { "1", "2", "3", "4" });

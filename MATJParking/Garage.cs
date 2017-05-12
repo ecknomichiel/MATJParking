@@ -10,26 +10,26 @@ namespace MATJParking
     {
         private List<ParkingPlace> parkingplaces = new List<ParkingPlace>();
         #region Private Methods
-        private Vehicle CreateVehicle(string VehicleType)
+        private Vehicle CreateVehicle(VehicleType aVehicleType)
         {
-            switch (VehicleType)
+            switch (aVehicleType)
             {
-                case "motorcycle":
+                case VehicleType.Motorcycle:
                     return new MotorCycle();
-                case "car":
+                case VehicleType.Car:
                     return new Car();
-                case "bus":
+                case VehicleType.Bus:
                     return new Bus();
-                case "truck":
+                case VehicleType.Truck:
                     return new Truck();
                 default:
-                    throw new EUnknownVehicleType(VehicleType);
+                    throw new EUnknownVehicleType(aVehicleType.ToString());
             }
         }
         private void LoadParkingPlaces()
         {
             int i;
-            for (i = 0; i < 5; i++ ) 
+            for (i = 0; i < 1; i++ ) 
             {
                 parkingplaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = VehicleType.Bus});
             }
@@ -48,9 +48,9 @@ namespace MATJParking
         }
         #endregion
         #region Public Methods
-        public string CheckIn(string RegistrationNumber, string VehicleType)
+        public string CheckIn(string RegistrationNumber, VehicleType aVehicleType)
         {
-            Vehicle vehicle = CreateVehicle(VehicleType);
+            Vehicle vehicle = CreateVehicle(aVehicleType);
             vehicle.RegNumber = RegistrationNumber;
             ParkingPlace place = SearchPlaceWhereVehicleIsParked(RegistrationNumber);
             if (place != null)
@@ -61,9 +61,9 @@ namespace MATJParking
                                                 .Where(pl => !pl.Occupied)
                                                 .First();
             }
-            catch (Exception e)
+            catch (Exception)
             {// Throw our own exception with a custom message text
-                throw new ENoPlaceForVehicle(VehicleType);
+                throw new ENoPlaceForVehicle(aVehicleType.ToString());
             }
             place.Park(vehicle);
 
@@ -94,6 +94,14 @@ namespace MATJParking
             else
                 return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.Price <= aPrice);
         }
+
+        public IEnumerable<ParkingPlace> SearchAllParkedVehiclesOnParkingTime(double hours, bool greaterThan)
+        {
+            if (greaterThan)
+                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime >= hours);
+            else
+                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime <= hours);
+        }
         public Vehicle SearchVehicle(string aRegistrationNumber)
         {
             ParkingPlace park = SearchPlaceWhereVehicleIsParked(aRegistrationNumber);
@@ -108,7 +116,7 @@ namespace MATJParking
         }
         public ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
         {
-            return parkingplaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
+            return parkingplaces.SingleOrDefault(pl => pl.Occupied && pl.VehicleRegNumber == aRegistrationNumber);
         }
         #endregion
         #region Constructor
@@ -118,6 +126,8 @@ namespace MATJParking
         }
         #endregion
 
+
+        
     }
     #region Exceptions
     class EUnknownVehicleType: Exception

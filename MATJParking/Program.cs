@@ -21,6 +21,7 @@ namespace MATJParking
                 switch (Console.ReadLine())  
                 {
                     case "1":
+                        Checkin();
                         break;
                     case "2":
                         CheckOut();
@@ -68,34 +69,24 @@ namespace MATJParking
                 Console.WriteLine(e.Message);
             }
         }
-                        Console.WriteLine();
-                        Console.WriteLine("Add a new vehicle to the grage");
-                        Console.WriteLine("---------------------------------------");
-                       Console.WriteLine("Please Add the Registration Number");
-                       string regNumber =Console.ReadLine();
-                        Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("Please chose what vehicle Type");
-                        Console.WriteLine("----------------------------------------");
-                        
-                        string vType = Console.ReadLine();
 
-             
-                        garage.CheckIn(regNumber, vType);
-                        break;
+        private static void Checkin()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Add a new vehicle to the garage");
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("Please Add the Registration Number");
+            string regNumber = Console.ReadLine();
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("Please chose what vehicle Type");
+            Console.WriteLine("1) Motorcycle\n2)Car\n3)Bus\n4) Truck");
 
-                    case "2":
+            string vType = ConstrainInput("Type: ", new string[] { "1", "2", "3", "4" });
 
-                        break;
-                    case "3":
-                        
-                    break;
-                    case "4":
 
-                        break;
-                    case "5":
-
-                        break;
-
+            garage.CheckIn(regNumber, vType);
+            
+        }
         private static string ConstrainInput(string question, string[] allowedValues)
         {
             string input;

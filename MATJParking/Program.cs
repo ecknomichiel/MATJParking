@@ -76,7 +76,7 @@ namespace MATJParking
         }
         private static void Checkin()
         {
-            Console.WriteLine("Check in a car");
+            Console.WriteLine("Check in a vehicle");
             string regNumber = "";
             while (regNumber == "")
             {
@@ -86,7 +86,9 @@ namespace MATJParking
             ParkingPlace place = garage.SearchPlaceWhereVehicleIsParked(regNumber);
             if (place != null) //Check if vehicle is already parked in order to avoid asking for vehicle type if we cannot check in anyway.
             {
-                Console.WriteLine("Your car is already parked. See details below:\n{0}\nPlease press any key to return to the main menu.", place.Vehicle.ToString());
+                Console.WriteLine("Your vehicle is already parked. See details below:\n{0}\nPlease press any key to return to the main menu.", place.Vehicle.ToString());
+                Console.ReadKey();
+                return;
             }
 
             Console.WriteLine("Please choose what vehicle Type");
@@ -109,7 +111,6 @@ namespace MATJParking
                 default:
                     vt = VehicleType.Truck;
                     break;
-
             }
 
             try

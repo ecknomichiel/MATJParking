@@ -140,7 +140,7 @@ namespace MATJParking
     class ENoPlaceForVehicle: Exception
     {
         public ENoPlaceForVehicle(string vehicleType): 
-            base (String.Format("No place for vehicle of type: {0}", vehicleType))
+            base (String.Format("No place available for a {0}", vehicleType.ToString().ToLower()))
         {
         }
     }

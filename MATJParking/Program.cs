@@ -95,6 +95,7 @@ namespace MATJParking
             {
                 Console.WriteLine(place.ToString());
             }
+            Console.ReadKey();
         }
 
         public static double AskForPrice(out bool greaterThan)
@@ -121,7 +122,7 @@ namespace MATJParking
                 }
                 else
                 {
-                    Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}\nDo you want to checkout y/n?", place.ID, place.Vehicle.Price);
+                    Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}", place.ID, place.Vehicle.Price);
                     switch (ConstrainInput("Do you want to checkout y/n?", new string[] { "y", "n" }))
                     {
                         case "y":
@@ -148,7 +149,7 @@ namespace MATJParking
             string regNumber = Console.ReadLine();
             Console.WriteLine("---------------------------------------");
             Console.WriteLine("Please chose what vehicle Type");
-            Console.WriteLine("1) Motorcycle\n2)Car\n3)Bus\n4) Truck");
+            Console.WriteLine("1) Motorcycle\n2) Car\n3) Bus\n4) Truck");
 
             string vType = ConstrainInput("Type: ", new string[] { "1", "2", "3", "4" });
 

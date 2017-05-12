@@ -48,7 +48,36 @@ namespace MATJParking
 
         private static void SearchForMultipleVehicles()
         {
-            Console.WriteLine("Search vehicles: \n");
+            Console.WriteLine("Search vehicles: \n1) All parked vehicles\n2) Parked vehicles on price.");
+            string input = ConstrainInput("", new string[]{"1", "2"});
+            IEnumerable<ParkingPlace> query;
+            switch(input)
+            {
+                case "1": 
+                    query = garage.SearchAllParkedVehicles();
+                    break;
+                case "2":
+                    bool greaterThan;
+                    Console.WriteLine("Search on vehicle and price.");
+                    double aPrice = AskForPrice(out greaterThan);
+                    query = garage.SearchAllParkedVehiclesOnPrice(aPrice, greaterThan);
+                    break;
+                default: return;
+            }
+            foreach (ParkingPlace place in query)
+            {
+                Console.WriteLine(place.ToString());
+            }
+        }
+
+        public static double AskForPrice(out bool greaterThan)
+        {
+            double result;
+            do //Ask for price again and again untill a number is entered
+                Console.Write("Please enter the price: ");
+            while (!double.TryParse(Console.ReadLine(), out result));
+            greaterThan = ">" == ConstrainInput("Search for price greater than '>' or smaller than '<' the price you entered >/<", new string[] { "<", ">" });
+            return result;
         }
 
         private static void CheckOut()

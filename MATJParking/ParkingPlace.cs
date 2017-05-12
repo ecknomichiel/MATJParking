@@ -24,9 +24,9 @@ namespace MATJParking
         }
         public Vehicle Vehicle { get { return vehicle; } }
 
-        public void Park(Vehicle Avehicle)
+        public void Park(Vehicle aVehicle)
         {
-            vehicle = Avehicle;
+            vehicle = aVehicle;
             vehicle.CheckInTime = DateTime.Now;
         }
         public void Unpark()

@@ -28,7 +28,6 @@ namespace MATJParking
                         break;
                     case "3":
                         SearchVehicle();
-
                         break;
                     case "4":
                         SearchForMultipleVehicles();

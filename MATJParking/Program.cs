@@ -28,6 +28,7 @@ namespace MATJParking
                     case "3":
                         break;
                     case "4":
+                        SearchForMultipleVehicles();
                         break;
                     case "5":
                         break;
@@ -36,6 +37,11 @@ namespace MATJParking
                         break;
                 }
             }
+        }
+
+        private static void SearchForMultipleVehicles()
+        {
+            Console.WriteLine("Search vehicles: \n")
         }
 
         private static void CheckOut()

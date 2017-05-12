@@ -56,6 +56,7 @@ namespace MATJParking
             {
                 Console.WriteLine("No Vehicles in the garage");
             }
+            
             Console.ReadKey();
         }
         private static void SearchVehicle()

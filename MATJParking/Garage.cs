@@ -8,7 +8,7 @@ namespace MATJParking
 {
     class Garage
     {
-        private List<ParkingPlace> parkingplaces = new List<ParkingPlace>();
+        private List<ParkingPlace> parkingPlaces = new List<ParkingPlace>();
         #region Private Methods
         private Vehicle CreateVehicle(VehicleType aVehicleType)
         {
@@ -31,19 +31,19 @@ namespace MATJParking
             int i;
             for (i = 0; i < 1; i++ ) 
             {
-                parkingplaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = VehicleType.Bus});
+                parkingPlaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = VehicleType.Bus});
             }
             for (i = 0; i < 5; i++)
             {
-                parkingplaces.Add(new ParkingPlace() { ID = "T" + i, VehicleType = VehicleType.Truck });
+                parkingPlaces.Add(new ParkingPlace() { ID = "T" + i, VehicleType = VehicleType.Truck });
             }
             for (i = 0; i < 50; i++)
             {
-                parkingplaces.Add(new ParkingPlace() { ID = "C" + i, VehicleType = VehicleType.Car });
+                parkingPlaces.Add(new ParkingPlace() { ID = "C" + i, VehicleType = VehicleType.Car });
             }
             for (i = 0; i < 20; i++)
             {
-                parkingplaces.Add(new ParkingPlace() { ID = "M" + i, VehicleType = VehicleType.Motorcycle });
+                parkingPlaces.Add(new ParkingPlace() { ID = "M" + i, VehicleType = VehicleType.Motorcycle });
             }
         }
         #endregion
@@ -57,7 +57,7 @@ namespace MATJParking
                 throw new EVehicleAlreadyCheckedIn(RegistrationNumber, place.ID);
             try
             { //If there is no available space for this type of car, an exception is raised (sequence contains no elements)
-                place = parkingplaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
+                place = parkingPlaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
                                                 .Where(pl => !pl.Occupied)
                                                 .First();
             }
@@ -81,26 +81,26 @@ namespace MATJParking
         #region Search
         public IEnumerable<ParkingPlace> SearchAllParkingPlaces()
         {
-            return parkingplaces;
+            return parkingPlaces;
         }
         public IEnumerable<ParkingPlace> SearchAllParkedVehicles()
         {
-            return parkingplaces.Where(pl => pl.Occupied);
+            return parkingPlaces.Where(pl => pl.Occupied);
         }
         public IEnumerable<ParkingPlace> SearchAllParkedVehiclesOnPrice(double aPrice, bool greaterThan)
         {
             if (greaterThan)
-                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.Price >= aPrice);
+                return parkingPlaces.Where(pl => pl.Occupied && pl.Vehicle.Price >= aPrice);
             else
-                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.Price <= aPrice);
+                return parkingPlaces.Where(pl => pl.Occupied && pl.Vehicle.Price <= aPrice);
         }
 
         public IEnumerable<ParkingPlace> SearchAllParkedVehiclesOnParkingTime(double hours, bool greaterThan)
         {
             if (greaterThan)
-                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime >= hours);
+                return parkingPlaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime >= hours);
             else
-                return parkingplaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime <= hours);
+                return parkingPlaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime <= hours);
         }
         public Vehicle SearchVehicle(string aRegistrationNumber)
         {
@@ -115,8 +115,8 @@ namespace MATJParking
             }
         }
         public ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
-        {
-            return parkingplaces.SingleOrDefault(pl => pl.Occupied && pl.VehicleRegNumber == aRegistrationNumber);
+        {// Can throw an exception if a programmer bypassed the checkin function to park a car
+            return parkingPlaces.SingleOrDefault(pl => pl.Occupied && pl.VehicleRegNumber == aRegistrationNumber);
         }
         #endregion
         #region Constructor

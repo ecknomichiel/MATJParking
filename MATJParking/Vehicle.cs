@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MATJParking
 {
@@ -14,11 +12,11 @@ namespace MATJParking
             get 
             { 
                 DateTime endTime = CheckOutTime;
-                if (CheckOutTime == null)
+                if (CheckOutTime < CheckInTime)
                 {
                     endTime = DateTime.Now;
                 }
-                return (endTime - CheckInTime).Hours * 15;
+                return endTime.Subtract(CheckInTime).Minutes * 15.0 / 60.0;
             }
         }
         public DateTime CheckInTime { get; set; }

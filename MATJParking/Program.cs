@@ -95,7 +95,7 @@ namespace MATJParking
                 }
                 else
                 {
-                    Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}\nDo you want to checkout y/n?", place.ID, place.Vehicle.Price);
+                    Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}", place.ID, place.Vehicle.Price);
                     switch (ConstrainInput("Do you want to checkout y/n?", new string[] { "y", "n" }))
                     {
                         case "y":

@@ -49,7 +49,7 @@ namespace MATJParking
             {
                 Console.WriteLine(place.ToString());
             }
-            Console.ReadLine();
+            Console.ReadKey();
         }
         private static void SearchVehicle()
         {
@@ -101,6 +101,8 @@ namespace MATJParking
                     break;
                 default: return;
             }
+            Console.Clear();
+            Console.WriteLine(reportTitle);
             foreach (ParkingPlace place in query)
             {
                 Console.WriteLine(place.ToString());
@@ -160,29 +162,29 @@ namespace MATJParking
             Console.WriteLine("Please choose what vehicle Type");
             Console.WriteLine("1) Motorcycle\n2) Car\n3) Bus\n4) Truck");
 
-            string vType = ConstrainInput("Type: ", new string[] { "1", "2", "3", "4" });
+            string input = ConstrainInput("Type: ", new string[] { "1", "2", "3", "4" });
 
-
-            switch (vType)
+            VehicleType vt;
+            switch (input)
             {
                 case "1":
-                    vType = "motorcycle";
+                    vt = VehicleType.Motorcycle;
                     break;
                 case "2":
-                    vType = "car";
+                    vt = VehicleType.Car;
                     break;
-                        case "3":
-                    vType = "bus";
+                case "3":
+                    vt = VehicleType.Bus;
                     break;
                 default:
-                    vType = "truck";
+                    vt = VehicleType.Truck;
                     break;
                 
             }
 
             try
             {
-                Console.WriteLine("{0} with registration number {1} is now checked in at place {2}.", vType, regNumber, garage.CheckIn(regNumber, vType));
+                Console.WriteLine("{0} with registration number {1} is now checked in at place {2}.", vt, regNumber, garage.CheckIn(regNumber, vt));
             }
             catch (Exception e)
             {

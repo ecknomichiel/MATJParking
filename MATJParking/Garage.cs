@@ -10,20 +10,20 @@ namespace MATJParking
     {
         private List<ParkingPlace> parkingplaces = new List<ParkingPlace>();
         #region Private Methods
-        private Vehicle CreateVehicle(string VehicleType)
+        private Vehicle CreateVehicle(VehicleType aVehicleType)
         {
-            switch (VehicleType)
+            switch (aVehicleType)
             {
-                case "motorcycle":
+                case VehicleType.Motorcycle:
                     return new MotorCycle();
-                case "car":
+                case VehicleType.Car:
                     return new Car();
-                case "bus":
+                case VehicleType.Bus:
                     return new Bus();
-                case "truck":
+                case VehicleType.Truck:
                     return new Truck();
                 default:
-                    throw new EUnknownVehicleType(VehicleType);
+                    throw new EUnknownVehicleType(aVehicleType.ToString());
             }
         }
         private void LoadParkingPlaces()
@@ -48,9 +48,9 @@ namespace MATJParking
         }
         #endregion
         #region Public Methods
-        public string CheckIn(string RegistrationNumber, string VehicleType)
+        public string CheckIn(string RegistrationNumber, VehicleType aVehicleType)
         {
-            Vehicle vehicle = CreateVehicle(VehicleType);
+            Vehicle vehicle = CreateVehicle(aVehicleType);
             vehicle.RegNumber = RegistrationNumber;
             ParkingPlace place = SearchPlaceWhereVehicleIsParked(RegistrationNumber);
             if (place != null)
@@ -63,7 +63,7 @@ namespace MATJParking
             }
             catch (Exception)
             {// Throw our own exception with a custom message text
-                throw new ENoPlaceForVehicle(VehicleType);
+                throw new ENoPlaceForVehicle(aVehicleType.ToString());
             }
             place.Park(vehicle);
 

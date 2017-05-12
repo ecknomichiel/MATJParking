@@ -10,8 +10,13 @@ namespace MATJParking
     {
         protected override double GetPrice()
         {
-             var PriceForTruck = StandardPrice * 3;
+            var PriceForTruck = StandardPrice * 3;
             return PriceForTruck;
         }
+        protected override VehicleType GetVehicleType()
+        {
+            return VehicleType.Truck;
+        }
+
     }
 }

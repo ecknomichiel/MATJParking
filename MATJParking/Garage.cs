@@ -31,19 +31,19 @@ namespace MATJParking
             int i;
             for (i = 0; i < 5; i++ ) 
             {
-                parkingplaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = new Bus().GetType()});
+                parkingplaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = VehicleType.Bus});
             }
             for (i = 0; i < 5; i++)
             {
-                parkingplaces.Add(new ParkingPlace() { ID = "T" + i, VehicleType = new Truck().GetType() });
+                parkingplaces.Add(new ParkingPlace() { ID = "T" + i, VehicleType = VehicleType.Truck });
             }
             for (i = 0; i < 50; i++)
             {
-                parkingplaces.Add(new ParkingPlace() { ID = "C" + i, VehicleType = new Car().GetType() });
+                parkingplaces.Add(new ParkingPlace() { ID = "C" + i, VehicleType = VehicleType.Car });
             }
             for (i = 0; i < 20; i++)
             {
-                parkingplaces.Add(new ParkingPlace() { ID = "M" + i, VehicleType = new MotorCycle().GetType() });
+                parkingplaces.Add(new ParkingPlace() { ID = "M" + i, VehicleType = VehicleType.Motorcycle });
             }
         }
         #endregion
@@ -52,7 +52,7 @@ namespace MATJParking
         {
             Vehicle vehicle = CreateVehicle(VehicleType);
             vehicle.RegNumber = RegistrationNumber;
-            ParkingPlace place = parkingplaces.Where(pl => pl.VehicleType == vehicle.GetType())
+            ParkingPlace place = parkingplaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
                                                 .First();
             if (place == null)
             {

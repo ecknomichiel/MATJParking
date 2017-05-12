@@ -12,5 +12,9 @@ namespace MATJParking
         {
             return StandardPrice;
         }
+        protected override VehicleType GetVehicleType()
+        {
+            return VehicleType.Motorcycle;
+        }
     }
 }

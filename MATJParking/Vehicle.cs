@@ -8,6 +8,7 @@ namespace MATJParking
 {
    abstract class Vehicle
     {
+        
         protected double StandardPrice
         { 
             get 
@@ -22,6 +23,7 @@ namespace MATJParking
         }
         public DateTime CheckInTime { get; set; }
         public DateTime CheckOutTime { get; set; }
+        public VehicleType VehicleType { get { return GetVehicleType(); } }
         public string RegNumber { get; set; }
         public double Price 
         {
@@ -31,7 +33,15 @@ namespace MATJParking
         //methods
 
         protected abstract double GetPrice();
-       
-       
+        protected abstract VehicleType GetVehicleType();
+        
+    }
+
+    enum VehicleType
+    {
+        Motorcycle,
+        Car,
+        Bus,
+        Truck
     }
 }

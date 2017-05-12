@@ -13,5 +13,9 @@ namespace MATJParking
             var PriceForBus = StandardPrice * 4;
             return PriceForBus;
         }
+        protected override VehicleType GetVehicleType()
+        {
+            return VehicleType.Bus;
+        }
     }
 }

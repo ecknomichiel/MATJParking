@@ -9,7 +9,7 @@ namespace MATJParking
     class ParkingPlace
     {
         private Vehicle vehicle;
-        public Type VehicleType { get; set; }
+        public VehicleType VehicleType { get; set; }
         public string ID { get; set; }
         public bool Occupied { get {return vehicle != null;} }
         public string VehicleRegNumber 
@@ -33,7 +33,13 @@ namespace MATJParking
         {
             vehicle.CheckOutTime = DateTime.Now;
             vehicle = null;
-
+        }
+        public override string ToString()
+        {
+            if (Occupied)
+                return String.Format("{0} parking place {1}, occupied by '{2}'. Current price at checkout: {3}", VehicleType, ID, vehicle.RegNumber, vehicle.Price);
+            else
+                return String.Format("{0} parking place {1}, empty", VehicleType, ID);
         }
     }
 

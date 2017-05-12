@@ -44,7 +44,7 @@ namespace MATJParking
 
         private static void SearchVehicle()
         {
-            Console.WriteLine("Please enter your car's registrationNumber!");
+            Console.WriteLine("Please enter your Vehicle's registrationNumber!");
             string regNr = Console.ReadLine();
             try
             {
@@ -162,8 +162,6 @@ namespace MATJParking
                     break;
                 
             }
-
-
             garage.CheckIn(regNumber, vType);
             
         }

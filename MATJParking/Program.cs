@@ -27,11 +27,7 @@ namespace MATJParking
                         CheckOut();
                         break;
                     case "3":
-
-                         Console.WriteLine("Please enter your car's registrationNumber!");
-                        string RegNumber = Console.ReadLine();
-                        Console.WriteLine("The Vehicle is parked at:" + garage.SearchVehicle(RegNumber));
-                        Console.ReadKey();
+                        SearchVehicle();
 
                         break;
                     case "4":
@@ -45,6 +41,38 @@ namespace MATJParking
                 }
             }
         }
+
+        private static void SearchVehicle()
+        {
+            Console.WriteLine("Please enter your car's registrationNumber!");
+            string regNr = Console.ReadLine();
+            try
+            {
+                ParkingPlace place = garage.SearchPlaceWhereVehicleIsParked(regNr);
+                if (place == null)
+                {
+                    Console.WriteLine("Cannot find the vehicle with registration numner '{0}'", regNr);
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}\nDo you want to checkout y/n?", place.ID, place.Vehicle.Price);
+                    switch (ConstrainInput("Do you want to checkout y/n?", new string[] { "y", "n" }))
+                    {
+                        case "y":
+                            garage.CheckOut(regNr);
+                            break;
+                        case "n":
+                            return;
+                    }
+                }
+            }
+            catch (EVehicleNotFound e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
 
         private static void SearchForMultipleVehicles()
         {
@@ -106,6 +134,7 @@ namespace MATJParking
                     }
                 }
             }
+
             catch (EVehicleNotFound e)
             {
                 Console.WriteLine(e.Message);
@@ -115,7 +144,7 @@ namespace MATJParking
         private static void Checkin()
         {
             Console.WriteLine();
-            Console.WriteLine("Add a new vehicle to the garage");
+            Console.WriteLine("Park your vehicle in the garage");
             Console.WriteLine("---------------------------------------");
             Console.WriteLine("Please Add the Registration Number");
             string regNumber = Console.ReadLine();

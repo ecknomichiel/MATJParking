@@ -158,7 +158,7 @@ namespace MATJParking
                     Console.WriteLine("The vehicle is parked at {0}.\n{1}", place.ID, place.Vehicle.ToString());
                 }
             }
-            catch (EVehicleNotFound e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }

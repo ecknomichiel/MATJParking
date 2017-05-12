@@ -52,28 +52,28 @@ namespace MATJParking
                 if (place == null)
                 {
                     Console.WriteLine("Cannot find the vehicle with registration numner '{0}'", regNr);
-                    Console.ReadKey();
                 }
                 else
                 {
-                    Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}\nDo you want to checkout y/n?", place.ID, place.Vehicle.Price);
+                    Console.WriteLine("The vehicle is parked at {0}. Price is SEK {1}\n", place.ID, place.Vehicle.Price);
                 }
             }
             catch (EVehicleNotFound e)
             {
                 Console.WriteLine(e.Message);
             }
+            Console.ReadKey();
         }
 
         private static void SearchForMultipleVehicles()
         {
-            Console.WriteLine("Search vehicles: \n1) All parked vehicles\n2) Parked vehicles on price.");
+            Console.WriteLine("Search vehicles: \n1) All parking places\n2) Parked vehicles on price.");
             string input = ConstrainInput("", new string[]{"1", "2"});
             IEnumerable<ParkingPlace> query;
             switch(input)
             {
                 case "1": 
-                    query = garage.SearchAllParkedVehicles();
+                    query = garage.SearchAllParkingPlaces();
                     break;
                 case "2":
                     bool greaterThan;
@@ -163,7 +163,7 @@ namespace MATJParking
 
             try
             {
-                Console.WriteLine("{0} with registration number {1} is checked in at place {2}.", vType, regNumber, garage.CheckIn(regNumber, vType));
+                Console.WriteLine("{0} with registration number {1} is now checked in at place {2}.", vType, regNumber, garage.CheckIn(regNumber, vType));
             }
             catch (Exception e)
             {

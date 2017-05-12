@@ -55,11 +55,14 @@ namespace MATJParking
             ParkingPlace place = SearchPlaceWhereVehicleIsParked(RegistrationNumber);
             if (place != null)
                 throw new EVehicleAlreadyCheckedIn(RegistrationNumber, place.ID);
-            place = parkingplaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
+            try
+            { //If there is no available space for this type of car, an exception is raised (sequence contains no elements)
+                place = parkingplaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
                                                 .Where(pl => !pl.Occupied)
                                                 .First();
-            if (place == null)
-            {
+            }
+            catch (Exception e)
+            {// Throw our own exception with a custom message text
                 throw new ENoPlaceForVehicle(VehicleType);
             }
             place.Park(vehicle);

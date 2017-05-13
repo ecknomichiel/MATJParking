@@ -10,45 +10,52 @@ namespace MATJParking
     {
         private List<ParkingPlace> parkingPlaces = new List<ParkingPlace>();
         #region Private Methods
-        private Vehicle CreateVehicle(VehicleType aVehicleType)
+        private ParkingPlace CreateParkingPlace(string aID, Type aVehicleType)
+        {
+            ParkingPlace result = new ParkingPlace() {ID = aID};
+            result.AddVehicleType(aVehicleType);
+            return result;
+        }
+        private Vehicle CreateVehicle(string aVehicleType)
         {
             switch (aVehicleType)
             {
-                case VehicleType.Motorcycle:
+                case "Motorcycle":
                     return new MotorCycle();
-                case VehicleType.Car:
+                case "Car":
                     return new Car();
-                case VehicleType.Bus:
+                case "Bus":
                     return new Bus();
-                case VehicleType.Truck:
+                case "Truck":
                     return new Truck();
                 default:
-                    throw new EUnknownVehicleType(aVehicleType.ToString());
+                    throw new EUnknownVehicleType(aVehicleType);
             }
         }
         private void LoadParkingPlaces()
         {
-            int i;
+            int i, nextID;
+            nextID = 1;
             for (i = 0; i < 1; i++ ) 
             {
-                parkingPlaces.Add(new ParkingPlace() {ID = "B" + i, VehicleType = VehicleType.Bus});
+                parkingPlaces.Add(CreateParkingPlace("B" + nextID++, typeof(Bus)));
+            }
+            for (i = 0; i < 3; i++)
+            {
+                parkingPlaces.Add(CreateParkingPlace("T" + nextID++, typeof(Truck)));
+            }
+            for (i = 0; i < 10; i++)
+            {
+                parkingPlaces.Add(CreateParkingPlace("C" + nextID++, typeof(Car)));
             }
             for (i = 0; i < 5; i++)
             {
-                parkingPlaces.Add(new ParkingPlace() { ID = "T" + i, VehicleType = VehicleType.Truck });
-            }
-            for (i = 0; i < 50; i++)
-            {
-                parkingPlaces.Add(new ParkingPlace() { ID = "C" + i, VehicleType = VehicleType.Car });
-            }
-            for (i = 0; i < 20; i++)
-            {
-                parkingPlaces.Add(new ParkingPlace() { ID = "M" + i, VehicleType = VehicleType.Motorcycle });
+                parkingPlaces.Add(CreateParkingPlace("B" + nextID++, typeof(MotorCycle)));
             }
         }
         #endregion
         #region Public Methods
-        public string CheckIn(string RegistrationNumber, VehicleType aVehicleType)
+        public string CheckIn(string RegistrationNumber, string aVehicleType)
         {
             Vehicle vehicle = CreateVehicle(aVehicleType);
             vehicle.RegNumber = RegistrationNumber;
@@ -57,13 +64,13 @@ namespace MATJParking
                 throw new EVehicleAlreadyCheckedIn(RegistrationNumber, place.ID);
             try
             { //If there is no available space for this type of car, an exception is raised (sequence contains no elements)
-                place = parkingPlaces.Where(pl => pl.VehicleType == vehicle.VehicleType)
+                place = parkingPlaces.Where(pl => pl.IsCompatibleWith(vehicle))
                                                 .Where(pl => !pl.Occupied)
                                                 .First();
             }
             catch (Exception)
             {// Throw our own exception with a custom message text
-                throw new ENoPlaceForVehicle(aVehicleType.ToString());
+                throw new ENoPlaceForVehicle(vehicle.GetType().Name);
             }
             place.Park(vehicle);
 

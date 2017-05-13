@@ -96,20 +96,20 @@ namespace MATJParking
 
             string input = ConstrainInput("Type: ", new string[] { "1", "2", "3", "4" });
 
-            VehicleType vt;
+            string vt;
             switch (input)
             {
                 case "1":
-                    vt = VehicleType.Motorcycle;
+                    vt = "Motorcycle";
                     break;
                 case "2":
-                    vt = VehicleType.Car;
+                    vt = "Car";
                     break;
                 case "3":
-                    vt = VehicleType.Bus;
+                    vt = "Bus";
                     break;
                 default:
-                    vt = VehicleType.Truck;
+                    vt = "Truck";
                     break;
             }
 

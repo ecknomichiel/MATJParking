@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MATJParking
 {
     class ParkingPlace
     {
         private Vehicle vehicle;
-        public VehicleType VehicleType { get; set; }
+        private List<Type> vehicleTypes = new List<Type>();
         public string ID { get; set; }
         public bool Occupied { get {return vehicle != null;} }
         public string VehicleRegNumber 
@@ -22,6 +20,39 @@ namespace MATJParking
                     return vehicle.RegNumber;
             } 
         }
+
+        public string VehicleTypeString()
+        {
+            string result = "";
+            bool first = true;
+            foreach (Type t in vehicleTypes)
+            {
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    result += ", ";
+                }
+                result += t.Name;
+            }
+            return result;
+        }
+
+        public bool IsCompatibleWith(Vehicle aVehicle)
+        {
+            return vehicleTypes.Contains(aVehicle.GetType());
+        }
+
+        public void AddVehicleType(Type aVehicleType)
+        {
+            if (aVehicleType == typeof(Vehicle))
+            {
+                vehicleTypes.Add(aVehicleType);
+            }
+        }
+
         public Vehicle Vehicle { get { return vehicle; } }
 
         public void Park(Vehicle aVehicle)
@@ -38,9 +69,9 @@ namespace MATJParking
         {
             if (Occupied)
                 return String.Format("{0} parking place {1}, occupied by '{2}'. Parking time: {4} hours Current price: SEK {3}", 
-                        VehicleType, ID, vehicle.RegNumber, Math.Round(vehicle.Price, 2), Math.Round(vehicle.ParkingTime, 2));
+                        VehicleTypeString(), ID, vehicle.RegNumber);
             else
-                return String.Format("{0} parking place {1}, empty", VehicleType, ID);
+                return String.Format("{0} parking place {1}, empty", VehicleTypeString(), ID);
         }
     }
 

@@ -16,7 +16,6 @@ namespace MATJParking
         }
         public DateTime CheckInTime { get; set; }
         public DateTime CheckOutTime { get; set; }
-        public VehicleType VehicleType { get { return GetVehicleType(); } }
         public string RegNumber { get; set; }
         public double Price 
         {
@@ -38,20 +37,11 @@ namespace MATJParking
         //methods
 
         protected abstract double GetPrice();
-        protected abstract VehicleType GetVehicleType();
+        
         public override string ToString()
         {
             return String.Format("Registration number: {0}\n Vehicle type: {1}\n Checked in {2}" +
-                "\n Current parking time {4} hours\n Current price: SEK {3}", RegNumber, VehicleType, CheckInTime, Price, Math.Round(ParkingTime, 2));
-        }
-        
-    }
-
-    enum VehicleType
-    {
-        Motorcycle,
-        Car,
-        Bus,
-        Truck
+                "\n Current parking time {4} hours\n Current price: SEK {3}", RegNumber, GetType().Name, CheckInTime, Price, Math.Round(ParkingTime, 2));
+        }        
     }
 }

@@ -6,18 +6,18 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/dotnetcore1.1/<MATJParking.dll>",
+            "program": "${workspaceRoot}/bin/netcoreapp1.1/Debug/<MATJParking.dll>",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,
-            "console": "internalConsole"
+            "console": "integratedTerminal"
         },
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/bin/Debug/dotnetcore1.1/<MATJParking.dll>",
+            "program": "${workspaceRoot}/bin/Debug/netcoreapp1.1/<MATJParking.dll>",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,

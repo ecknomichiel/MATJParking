@@ -6,7 +6,6 @@ namespace MATJParking
 {
    abstract class Vehicle
     {
-        
         protected double StandardPrice
         { 
             get 

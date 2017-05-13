@@ -42,15 +42,20 @@ namespace MATJParking
 
         public bool IsCompatibleWith(Vehicle aVehicle)
         {
-            return vehicleTypes.Contains(aVehicle.GetType());
+            //return vehicleTypes.Contains(aVehicle.GetType());
+            foreach (Type t in vehicleTypes)
+            {
+                if (aVehicle.GetType() == t)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void AddVehicleType(Type aVehicleType)
         {
-            if (aVehicleType == typeof(Vehicle))
-            {
-                vehicleTypes.Add(aVehicleType);
-            }
+            vehicleTypes.Add(aVehicleType);
         }
 
         public Vehicle Vehicle { get { return vehicle; } }
@@ -68,7 +73,7 @@ namespace MATJParking
         public override string ToString()
         {
             if (Occupied)
-                return String.Format("{0} parking place {1}, occupied by '{2}'. Parking time: {4} hours Current price: SEK {3}", 
+                return String.Format("{0} parking place {1}, occupied by '{2}'.", 
                         VehicleTypeString(), ID, vehicle.RegNumber);
             else
                 return String.Format("{0} parking place {1}, empty", VehicleTypeString(), ID);

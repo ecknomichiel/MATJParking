@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MATJParking
 {
@@ -51,6 +49,11 @@ namespace MATJParking
             for (i = 0; i < 5; i++)
             {
                 parkingPlaces.Add(CreateParkingPlace("B" + nextID++, typeof(MotorCycle)));
+            }
+            //Add the first 10 spaces are suited for motorcycles as well
+            for (i = 0; i < 10; i++)
+            {
+                parkingPlaces[i].AddVehicleType(typeof(MotorCycle));
             }
         }
         #endregion

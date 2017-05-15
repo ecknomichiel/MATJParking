@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MATJ Parking</title>
+</head>
+<body>
+    <h1>MATJ Welcome page</h1>
+    <h2>Overview</h2>
+    <p>Hello, and welcome to MATJ Parking. This program allow you to find the parking space best suited for your vehicle in a garage that uses this system.
+    In this document you will find a description of the functionality, an explanation of the design philosophy and some code samples.</p>
+    <h2>Functionality</h2>
+    <h3>Checkin in a car</h3>
+    <h3>Checkin out a car</h3>
+    <h3>Customer loyalty programme</h3>
+    <h2>Design philosophy</h2>
+    <h2>Code samples</h2>
+    <p>Here is a code sample that shows the factory method for creating vehicles:
+    <code><pre>private Vehicle CreateVehicle(string aVehicleType)
+        {
+            switch (aVehicleType)
+            {
+                case "Motorcycle":
+                    return new MotorCycle();
+                case "Car":
+                    return new Car();
+                case "Bus":
+                    return new Bus();
+                case "Truck":
+                    return new Truck();
+                default:
+                    throw new EUnknownVehicleType(aVehicleType);
+            }
+        }</pre></code></p>
+
+
+
+</body>
+</html>

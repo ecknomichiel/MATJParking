@@ -7,12 +7,30 @@ namespace MATJParking
     class Garage
     {
         private List<ParkingPlace> parkingPlaces = new List<ParkingPlace>();
+        private Dictionary<Type,ParkingPlaceIndex> indexes = new Dictionary<Type,ParkingPlaceIndex>();
+        private ParkingPlaceIndex occupiedPlaces = new ParkingPlaceIndex(true);
         #region Private Methods
+        private ParkingPlaceIndex GetIndex(Type aVehicleType)
+        {
+            ParkingPlaceIndex result;
+            if (!indexes.TryGetValue(aVehicleType, out result))
+            {
+                result = new ParkingPlaceIndex(false);
+                indexes.Add(aVehicleType, result);
+            }
+            return result;
+        }
         private ParkingPlace CreateParkingPlace(string aID, Type aVehicleType)
         {
             ParkingPlace result = new ParkingPlace() {ID = aID};
-            result.AddVehicleType(aVehicleType);
+            occupiedPlaces.Add(result); //This will not add the place to the index, but will have the index subscribe to changes in .Occupied state in the parkingplace
+            AddVehicleType(result, aVehicleType);
             return result;
+        }
+        private void AddVehicleType(ParkingPlace place, Type aVehicleType)
+        {//Add place to the index for the vehicletype
+            place.AddVehicleType(aVehicleType);
+            GetIndex(aVehicleType).Add(place);
         }
         private Vehicle CreateVehicle(string aVehicleType)
         {
@@ -34,26 +52,27 @@ namespace MATJParking
         {
             int i, nextID;
             nextID = 1;
-            for (i = 0; i < 1; i++ ) 
+            for (i = 0; i < 100000; i++ ) 
             {
                 parkingPlaces.Add(CreateParkingPlace("B" + nextID++, typeof(Bus)));
             }
-            for (i = 0; i < 3; i++)
+            for (i = 0; i < 300000; i++)
             {
                 parkingPlaces.Add(CreateParkingPlace("T" + nextID++, typeof(Truck)));
             }
-            for (i = 0; i < 10; i++)
+            for (i = 0; i < 1000000; i++)
             {
                 parkingPlaces.Add(CreateParkingPlace("C" + nextID++, typeof(Car)));
             }
-            for (i = 0; i < 5; i++)
+            for (i = 0; i < 500000; i++)
             {
                 parkingPlaces.Add(CreateParkingPlace("B" + nextID++, typeof(MotorCycle)));
             }
-            //Add the first 10 spaces are suited for motorcycles as well
-            for (i = 0; i < 10; i++)
+            //Add 10% the first 100000 spaces are suited for motorcycles as well
+            for (i = 0; i < 1000000; i++)
             {
-                parkingPlaces[i].AddVehicleType(typeof(MotorCycle));
+                if (i % 10 == 0)
+                    AddVehicleType(parkingPlaces[i], typeof(MotorCycle));
             }
         }
         #endregion
@@ -67,9 +86,11 @@ namespace MATJParking
                 throw new EVehicleAlreadyCheckedIn(RegistrationNumber, place.ID);
             try
             { //If there is no available space for this type of car, an exception is raised (sequence contains no elements)
+                place = GetIndex(vehicle.GetType()).First();
+                /*
                 place = parkingPlaces.Where(pl => pl.IsCompatibleWith(vehicle))
                                                 .Where(pl => !pl.Occupied)
-                                                .First();
+                                                .First();*/
             }
             catch (Exception)
             {// Throw our own exception with a custom message text
@@ -95,22 +116,23 @@ namespace MATJParking
         }
         public IEnumerable<ParkingPlace> SearchAllParkedVehicles()
         {
-            return parkingPlaces.Where(pl => pl.Occupied);
+            return occupiedPlaces;
+                //parkingPlaces.Where(pl => pl.Occupied);
         }
         public IEnumerable<ParkingPlace> SearchAllParkedVehiclesOnPrice(double aPrice, bool greaterThan)
         {
             if (greaterThan)
-                return parkingPlaces.Where(pl => pl.Occupied && pl.Vehicle.Price >= aPrice);
+                return occupiedPlaces.Where(pl => pl.Vehicle.Price >= aPrice);
             else
-                return parkingPlaces.Where(pl => pl.Occupied && pl.Vehicle.Price <= aPrice);
+                return occupiedPlaces.Where(pl => pl.Vehicle.Price <= aPrice);
         }
 
         public IEnumerable<ParkingPlace> SearchAllParkedVehiclesOnParkingTime(double hours, bool greaterThan)
         {
             if (greaterThan)
-                return parkingPlaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime >= hours);
+                return occupiedPlaces.Where(pl => pl.Vehicle.ParkingTime >= hours);
             else
-                return parkingPlaces.Where(pl => pl.Occupied && pl.Vehicle.ParkingTime <= hours);
+                return occupiedPlaces.Where(pl => pl.Vehicle.ParkingTime <= hours);
         }
         public Vehicle SearchVehicle(string aRegistrationNumber)
         {
@@ -125,8 +147,8 @@ namespace MATJParking
             }
         }
         public ParkingPlace SearchPlaceWhereVehicleIsParked(string aRegistrationNumber)
-        {// Can throw an exception if a programmer bypassed the checkin function to park a car
-            return parkingPlaces.SingleOrDefault(pl => pl.Occupied && pl.VehicleRegNumber == aRegistrationNumber);
+        {// Can throw an exception if a programmer bypassed the checkin function to park a car that was already parked
+            return occupiedPlaces.SingleOrDefault(pl => pl.VehicleRegNumber == aRegistrationNumber);
         }
         #endregion
         #region Constructor

@@ -7,6 +7,7 @@ namespace MATJParking
     {
         private Vehicle vehicle;
         private List<Type> vehicleTypes = new List<Type>();
+        private List<IPlaceObserver> observers = new List<IPlaceObserver>();
         public string ID { get; set; }
         public bool Occupied { get {return vehicle != null;} }
         public string VehicleRegNumber 
@@ -63,11 +64,23 @@ namespace MATJParking
         {
             vehicle = aVehicle;
             vehicle.CheckInTime = DateTime.Now;
+            foreach (IPlaceObserver observer in observers)
+            {
+                observer.OnPark(this);
+            }
         }
         public void Unpark()
         {
             vehicle.CheckOutTime = DateTime.Now;
             vehicle = null;
+            foreach (IPlaceObserver observer in observers)
+            {
+                observer.OnUnpark(this);
+            }
+        }
+        public void Subscribe(IPlaceObserver obs)
+        {
+            observers.Add(obs);
         }
         public override string ToString()
         {

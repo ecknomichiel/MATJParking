@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MATJ parking :: 2017</title>
+    <link href="./matjparking.css" rel="stylesheet">
+</head>
+<body>
+    <div  class="header">
+        <section class="container">
+            <span id="logo">MATJ parking</span>
+            <div class="menu-wrapper">
+                <nav class="menu">
+                    <ul>
+                        <li class="menu-item"><a class="link link--active" href="#">Home</a></li>
+                        <li class="menu-item"><a class="link" href="#">Overview</a></li>
+                        <li class="menu-item"><a class="link" href="#">Reporting</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="clear"></div>
+        </section>
+        <section>
+            <div class="body">
+                <form action="./index.html">
+                    <div class="homeInput">
+                        <p>
+                            Registration<br />
+                            <input type="text" value="" />
+                        </p>
+                        <p>
+                            Vehicle type<br />
+                            <input type="radio" name="vehicleType" value="Motorcycle">Motorcycle<br />
+                            <input type="radio" name="vehicleType" value="Car" checked>Car<br />
+                            <input type="radio" name="vehicleType" value="Bus">Bus<br />
+                            <input type="radio" name="vehicleType" value="Truck">Truck<br />
+                        </p>
+                    </div>
+                    <div class="pageButtons">
+                        <input type="button" value="Check in" onclick="alert(Vehicle checked in.)" />
+                        <input type="button" value="Check out" onclick="alert(Vehicle checked out.)" />
+                        <input type="button" value="Check Search" onclick="alert(Vehicle found)" />
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

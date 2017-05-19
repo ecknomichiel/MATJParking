@@ -56,7 +56,13 @@
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.html" />
+    <Content Include="..\Website\overview.html" />
+    <Content Include="..\Website\index.html">
+      <Link>index.html</Link>
+    </Content>
+    <Content Include="..\Website\matjparking.css">
+      <Link>matjparking.css</Link>
+    </Content>
     <Content Include="Reporting.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

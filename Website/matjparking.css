@@ -156,35 +156,13 @@ nav {
     .menu-item {
         padding: 5px;
     }
-    
-}
-
-@media only screen and (max-width: 480px) {
-    /* For mobile phones: */
-    .header {
-        height: 70px;
-    }
-
-    #logo {
-        width: 100%;
-        margin: 0 auto;
-        padding: 0;
-    }
-
-    .menu-wrapper {
-        float: none;
-        margin-top: -10px;
-    }
-
-    .menu-item {
-        padding: 5px;
-    }
     .overview
     {
         display:none;
     }
     
 }
+
 
 
 

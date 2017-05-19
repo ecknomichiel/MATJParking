@@ -117,16 +117,31 @@ nav {
 
 
 /*Show Available parkingplaces*/
-.ShowEmptyPlaces{
-
+.ShowEmptyWord{
+    color:black;
 }
-.ShowTable{
-    border:solid;
+.ShowEmptyPlaces{
+    margin: auto;
+    color:red;
+    background-color:black;
+}
+.showspaces{
+    padding: 2%;
+}
+.ShowAvailable{
+    font-size:500%;
     text-align: center;
 }
-.Showtr{
 
+.ShowTable{
+    font-size:700%;
+    width:100%;
+    height:100%;
+    text-align: center;
+    /*border:solid;*/
 }
+
 .Showtd{
-
+    /*border:solid;*/
 }
+

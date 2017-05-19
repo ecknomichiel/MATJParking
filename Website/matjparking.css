@@ -86,14 +86,49 @@ nav {
     padding:1em;
     margin:0.5em;
 }
+.main
+{
+    padding:1em;
+}
+.overview
+{
+    margin-left:3em;
+    display:inline-block;
+}
+.overviewTable
+{
+    width:15em;
+}
+.overviewTable caption
+{
+    text-align:left;
+}
+.available
+{
+    color:darkgreen;
+}
+.unavailable
+{
+    color:darkred;
+}
+.overviewTable tr>td:first-child
+{
+    width:4em;
+    padding-left:2em;
+}
+.overviewTable tr>td:nth-child(2)
+{
+    width:1em;
+    text-align:right;
+}
 
   /*media query */
 
-    @media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     /* For mobile phones: */
-      .header {
+    .header {
         height: 70px;
-      }
+    }
 
     #logo {
         width: 100%;
@@ -102,10 +137,27 @@ nav {
     }
 
     .menu-wrapper {
-      float: none;
-      margin-top:-10px; 
+        float: none;
+        margin-top: -10px;
     }
 
     .menu-item {
-      padding: 5px;
+        padding: 5px;
     }
+}
+
+
+/*Show Available parkingplaces*/
+.ShowEmptyPlaces{
+
+}
+.ShowTable{
+    border:solid;
+    text-align: center;
+}
+.Showtr{
+
+}
+.Showtd{
+
+}

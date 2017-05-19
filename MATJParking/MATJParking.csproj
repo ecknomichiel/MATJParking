@@ -63,7 +63,9 @@
     <Content Include="..\Website\matjparking.css">
       <Link>matjparking.css</Link>
     </Content>
-    <Content Include="reporting.html" />
+    <Content Include="..\Website\reporting.html">
+      <Link>reporting.html</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

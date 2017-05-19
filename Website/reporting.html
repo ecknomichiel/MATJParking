@@ -23,9 +23,23 @@
             <div class="clear"></div>
         </section>
     </div>
-    <div class="body">
+    <div class="main">
+        <form method="get" action="./reporting.html">
+            <div class="reportInput">
+                <p>Type of Report.</p>
 
-    </div>
+                <input type="radio" name="reportType" value="voPrice">Vehicles on price<br>
+                <input type="radio" name="reportType" value="voTime">Vehicles on parking time<br>
+                <input type="radio" name="reportType" value="allParked" checked>All parked Vehicles<br>
+                <input type="radio" name="reportType" value="allParked">All parking places<br>
+
+                <input type="text" name="number" value=""/>
+
+            </div>
+            <div class="pageButtons">
+                <input type="submit" value="search" />
+            </div>
+        </form>
 
 </body>
 </html>

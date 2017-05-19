@@ -75,26 +75,37 @@ nav {
     width:10em;
     display:inline-block;
 }
+/* div with input on home page*/
 .homeInput
 {
     width:10em;
     display:inline-block;
 }
+/* div with input on reporting page*/
+.reportInput
+{
+    width:13em;
+    display:inline-block;
+}
+/* div with buttons, both on home and reporting*/
 .pageButtons input
 {
     width:90%;
     padding:1em;
     margin:0.5em;
 }
+/* div that contains the main bodytext (container of everything under the menu */
 .main
 {
     padding:1em;
 }
+/* overview div on the main page */
 .overview
 {
     margin-left:3em;
     display:inline-block;
 }
+
 .overviewTable
 {
     width:15em;

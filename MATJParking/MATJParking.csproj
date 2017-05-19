@@ -57,7 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Website\overview.html" />
-    <Content Include="index.html" />
+    <Content Include="..\Website\index.html">
+      <Link>index.html</Link>
+    </Content>
     <Content Include="..\Website\matjparking.css">
       <Link>matjparking.css</Link>
     </Content>

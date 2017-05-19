@@ -1,9 +1,10 @@
-﻿body {
+﻿body 
+{
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  font-size: 1em;
-  text-align: justify; }
+  font-size: 1em; 
+}
 
 h1 {
   font-family: serif;
@@ -69,10 +70,6 @@ nav {
   .link--active {
     border-bottom: solid 2px #FFFFFF; }
 
-    /*Midea */
-body
-{
-}
 .pageButtons
 {
     width:10em;

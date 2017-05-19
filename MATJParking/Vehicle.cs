@@ -31,7 +31,7 @@ namespace MATJParking
                 {
                     endTime = DateTime.Now;
                 }
-                return endTime.Subtract(CheckInTime).TotalHours ; 
+                return endTime.Subtract(CheckInTime).TotalHours ;
             }
         }
 

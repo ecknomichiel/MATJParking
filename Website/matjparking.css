@@ -86,9 +86,40 @@ nav {
     padding:1em;
     margin:0.5em;
 }
+.main
+{
+    padding:1em;
+}
 .overview
 {
+    margin-left:3em;
     display:inline-block;
+}
+.overviewTable
+{
+    width:15em;
+}
+.overviewTable caption
+{
+    text-align:left;
+}
+.available
+{
+    color:darkgreen;
+}
+.unavailable
+{
+    color:darkred;
+}
+.overviewTable tr>td:first-child
+{
+    width:4em;
+    padding-left:2em;
+}
+.overviewTable tr>td:nth-child(2)
+{
+    width:1em;
+    text-align:right;
 }
 
   /*media query */

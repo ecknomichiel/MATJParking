@@ -145,3 +145,19 @@ nav {
         padding: 5px;
     }
 }
+
+
+/*Show Available parkingplaces*/
+.ShowEmptyPlaces{
+
+}
+.ShowTable{
+    border:solid;
+    text-align: center;
+}
+.Showtr{
+
+}
+.Showtd{
+
+}

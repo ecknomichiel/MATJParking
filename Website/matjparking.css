@@ -70,3 +70,22 @@ nav {
     border-bottom: solid 2px #FFFFFF; }
 
     /*Midea */
+body
+{
+}
+.pageButtons
+{
+    width:10em;
+    display:inline-block;
+}
+.homeInput
+{
+    width:10em;
+    display:inline-block;
+}
+.pageButtons input
+{
+    width:90%;
+    padding:1em;
+    margin:0.5em;
+}

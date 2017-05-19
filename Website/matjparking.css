@@ -93,11 +93,11 @@ nav {
 
   /*media query */
 
-    @media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     /* For mobile phones: */
-      .header {
+    .header {
         height: 70px;
-      }
+    }
 
     #logo {
         width: 100%;
@@ -106,10 +106,11 @@ nav {
     }
 
     .menu-wrapper {
-      float: none;
-      margin-top:-10px; 
+        float: none;
+        margin-top: -10px;
     }
 
     .menu-item {
-      padding: 5px;
+        padding: 5px;
     }
+}
